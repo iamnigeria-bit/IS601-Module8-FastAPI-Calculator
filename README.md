@@ -262,3 +262,107 @@ Then submit the GitHub repository link as instructed.
 - [Python Downloads](https://www.python.org/downloads/)
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 - [GitHub SSH Setup Guide](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
+
+
+---
+
+# Module 10: Secure User Model and Docker Deployment
+
+## Overview
+
+This project extends my existing IS 601 FastAPI Calculator
+with a secure user model, input validation, database testing,
+and automated Docker deployment.
+
+## Features
+
+- SQLAlchemy User model with unique usernames and emails
+- Secure password hashing using Argon2 through pwdlib
+- Password verification
+- Pydantic validation for user registration data
+- UserRead schema that excludes password hashes
+- Duplicate username and email protection
+- SQLite unit tests
+- PostgreSQL integration tests
+- Automated testing with GitHub Actions
+- Docker image publishing to Docker Hub
+
+## Technologies Used
+
+- Python 3.12
+- FastAPI
+- SQLAlchemy
+- Pydantic
+- PostgreSQL 16
+- SQLite
+- Pytest
+- Docker
+- GitHub Actions
+
+## Running the Application
+
+Install dependencies:
+
+    pip install -r requirements.txt
+
+Start the FastAPI calculator:
+
+    uvicorn main:app --reload
+
+Open the application at:
+
+http://localhost:8000
+
+## Testing
+
+Run the complete test suite:
+
+    python -m pytest -q
+
+PostgreSQL integration tests use a dedicated database named
+module10_test. Configure TEST_DATABASE_URL to run them.
+
+Example local test connection:
+
+    export TEST_DATABASE_URL="postgresql+psycopg://module10_test:local_test_only@127.0.0.1:5434/module10_test"
+
+Run PostgreSQL integration tests:
+
+    python -m pytest tests/test_users_postgres.py -v
+
+## Docker Deployment
+
+Docker Hub repository:
+
+https://hub.docker.com/r/brownie97/module10-fastapi
+
+Pull the published Docker image:
+
+    docker pull brownie97/module10-fastapi:latest
+
+Run the Docker container:
+
+    docker run --rm -p 8001:8000 brownie97/module10-fastapi:latest
+
+Open the calculator at:
+
+http://localhost:8001
+
+## Continuous Integration and Deployment
+
+GitHub Actions automatically runs the application's tests,
+including PostgreSQL integration tests.
+
+When the tests pass on the module10-secure-users branch,
+GitHub Actions builds and publishes the Docker image.
+
+Docker Hub authentication uses encrypted GitHub Actions
+repository secrets.
+
+## GitHub Repository
+
+https://github.com/iamnigeria-bit/IS601-Module8-FastAPI-Calculator
+
+Module 10 development branch:
+
+module10-secure-users
