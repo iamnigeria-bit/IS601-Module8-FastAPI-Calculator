@@ -366,3 +366,85 @@ https://github.com/iamnigeria-bit/IS601-Module8-FastAPI-Calculator
 Module 10 development branch:
 
 module10-secure-users
+
+
+---
+
+# Module 11: Calculation Model and Factory Pattern
+
+## Overview
+
+Module 11 extends the FastAPI Calculator with a SQLAlchemy
+Calculation model, Pydantic validation, and a calculation
+factory pattern.
+
+## Features
+
+- Calculation model with id, a, b, type, and result
+- Four supported operations: add, sub, multiply, divide
+- Pydantic CalculationCreate and CalculationRead schemas
+- Validation for unsupported operations and division by zero
+- Factory pattern for selecting mathematical operations
+- Calculation service for saving results to the database
+- SQLite unit tests
+- PostgreSQL integration tests
+- Automated GitHub Actions testing
+- Trivy Docker image security scanning
+- Automated Docker Hub deployment
+
+## Running Tests Locally
+
+Install dependencies:
+
+    python -m pip install -r requirements.txt
+
+Run all tests:
+
+    python -m pytest -q
+
+To run PostgreSQL integration tests, start the dedicated
+PostgreSQL test database and configure TEST_DATABASE_URL.
+
+Run calculation unit tests:
+
+    python -m pytest tests/test_calculations.py -v
+
+Run calculation PostgreSQL integration tests:
+
+    python -m pytest tests/test_calculations_postgres.py -v
+
+The PostgreSQL tests require TEST_DATABASE_URL to be set.
+
+## Docker Hub
+
+Docker Hub repository:
+
+https://hub.docker.com/r/brownie97/module10-fastapi
+
+Pull the Module 11 image:
+
+    docker pull --platform linux/amd64 brownie97/module10-fastapi:module11
+
+Run the image:
+
+    docker run --rm --platform linux/amd64 -p 8002:8000 brownie97/module10-fastapi:module11
+
+Open the calculator at:
+
+http://localhost:8002
+
+## CI/CD Pipeline
+
+GitHub Actions runs the automated test suite with PostgreSQL.
+After successful tests, the Docker image is scanned with
+Trivy before publication to Docker Hub.
+
+## GitHub Repository
+
+https://github.com/iamnigeria-bit/IS601-Module8-FastAPI-Calculator/tree/module11-calculation-model
+
+## Future Development
+
+Module 12 will extend the calculation functionality with
+API endpoints for creating, retrieving, updating, and
+deleting calculation records.
