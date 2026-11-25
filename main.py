@@ -117,5 +117,18 @@ async def divide_route(operation: OperationRequest):
         logger.error(f"Divide Operation Internal Error: {str(e)}")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
+
+# Module 12: User and Calculation Routes
+from app.routes import router
+from app.database import Base, engine
+
+app.include_router(router)
+
+
+@app.on_event("startup")
+def initialize_database():
+    Base.metadata.create_all(bind=engine)
+
+
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)
