@@ -448,3 +448,122 @@ https://github.com/iamnigeria-bit/IS601-Module8-FastAPI-Calculator/tree/module11
 Module 12 will extend the calculation functionality with
 API endpoints for creating, retrieving, updating, and
 deleting calculation records.
+
+---
+
+# Module 12: User and Calculation Routes
+
+## Overview
+
+Module 12 completes the FastAPI calculator backend by
+implementing secure user registration, login, calculation
+BREAD operations, and automated integration testing.
+
+## Features
+
+- User registration with secure Argon2 password hashing
+- User login with password verification
+- SQLAlchemy database integration
+- Pydantic request and response validation
+- Calculation BREAD operations
+- Duplicate account prevention
+- Database transaction rollback
+- Automated PostgreSQL integration testing
+- GitHub Actions CI/CD
+- Docker image security scanning and publication
+
+## API Endpoints
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| POST | /users/register | Register a user |
+| POST | /users/login | Verify login credentials |
+| GET | /calculations | Browse calculations |
+| GET | /calculations/{id} | Read a calculation |
+| PUT | /calculations/{id} | Edit a calculation |
+| POST | /calculations | Add a calculation |
+| DELETE | /calculations/{id} | Delete a calculation |
+
+Login verifies credentials without issuing session tokens.
+Token-based authorization is outside the Module 12 scope.
+
+## Run Locally
+
+Requires Python 3.12.
+
+```bash
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python -m uvicorn main:app --reload
+```
+
+## Manual API Testing
+
+Open Swagger UI:
+
+http://127.0.0.1:8000/docs
+
+Alternative API documentation:
+
+http://127.0.0.1:8000/redoc
+
+Use Swagger UI's Try it out and Execute buttons
+to register a user, verify login credentials, and
+create, browse, read, edit, and delete calculations.
+
+## Automated Testing
+
+Run Module 12 integration tests:
+
+```bash
+python -m pytest tests/integration/test_module12_routes.py -v
+```
+
+Install Playwright Chromium and run the full suite:
+
+```bash
+python -m playwright install chromium
+python -m pytest -q
+```
+
+Local verification results:
+
+- 20 new integration tests passed
+- 67 total tests passed
+- 10 PostgreSQL tests skipped locally
+- 91% overall application code coverage
+- Zero failed tests
+
+GitHub Actions configures TEST_DATABASE_URL and runs
+the integration tests using a dedicated PostgreSQL
+test database before publishing the Docker image.
+
+## Docker Hub
+
+Repository:
+https://hub.docker.com/r/brownie97/module10-fastapi
+
+Module 12 image:
+
+```bash
+docker pull --platform linux/amd64 brownie97/module10-fastapi:module12
+```
+
+Run the published image for local verification:
+
+```bash
+docker run --rm -p 127.0.0.1:8012:8000 \
+  --platform linux/amd64 \
+  -e DATABASE_URL=sqlite:////tmp/module12-smoke.db \
+  brownie97/module10-fastapi:module12
+```
+
+Open http://127.0.0.1:8012/docs
+
+## CI/CD Pipeline
+
+GitHub Actions automatically runs tests, validates
+PostgreSQL integration, builds the Docker image,
+performs a Trivy security scan, and publishes the
+image to Docker Hub after successful verification.
